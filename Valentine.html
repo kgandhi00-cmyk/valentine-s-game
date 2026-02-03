@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>For You ❤️</title>
+  <style>
+    body {
+      margin: 0;
+      overflow: hidden;
+      background: linear-gradient(to bottom, #ffe6f0, #ffcce0);
+      font-family: Arial, sans-serif;
+      text-align: center;
+    }
+
+    h1 {
+      margin-top: 40px;
+      color: #ff3366;
+    }
+
+    #counter {
+      font-size: 22px;
+      color: #ff4d88;
+      margin-top: 10px;
+    }
+
+    .item {
+      position: absolute;
+      font-size: 40px;
+      cursor: pointer;
+      user-select: none;
+      animation: float 4s linear infinite;
+    }
+
+    @keyframes float {
+      from { transform: translateY(100vh); }
+      to { transform: translateY(-60px); }
+    }
+
+    #message {
+      display: none;
+      margin-top: 150px;
+      font-size: 32px;
+      color: #ff1a66;
+    }
+
+    .btn {
+      font-size: 20px;
+      padding: 10px 20px;
+      border-radius: 12px;
+      border: none;
+      cursor: pointer;
+      margin: 10px;
+      color: white;
+    }
+
+    .btn:hover {
+      transform: scale(1.1);
+    }
+
+    .yes {
+      background: #ff4d88;
+    }
+
+    .yes-red {
+      background: #ff1a1a;
+    }
+
+    /* Confetti */
+
+    .confetti {
+      position: absolute;
+      font-size: 28px;
+      animation: fall 3s linear forwards;
+      pointer-events: none;
+    }
+
+    @keyframes fall {
+      from { transform: translateY(-50px); opacity: 1; }
+      to { transform: translateY(100vh); opacity: 0; }
+    }
+  </style>
+</head>
+<body>
+
+<h1>Collect 10 hearts & kisses 💕💋</h1>
+<div id="counter">0 / 10 collected 💖</div>
+
+<div id="message">
+  <p>Will you be my Valentine? 💖</p>
+  <button class="btn yes" onclick="yesClicked()">Yes!</button>
+  <button class="btn yes-red" onclick="yesClicked()">Yes but in red ❤️</button>
+</div>
+
+<script>
+  let count = 0;
+  const goal = 10;
+  const items = ["❤️", "💋"];
+
+  function createItem() {
+    const item = document.createElement("div");
+    item.className = "item";
+    item.innerHTML = items[Math.floor(Math.random() * items.length)];
+    item.style.left = Math.random() * 90 + "vw";
+    item.style.animationDuration = (2 + Math.random() * 3) + "s";
+
+    item.onclick = () => {
+      item.remove();
+      count++;
+      updateCounter();
+
+      if (count >= goal) {
+        showMessage();
+      }
+    };
+
+    document.body.appendChild(item);
+
+    setTimeout(() => item.remove(), 5000);
+  }
+
+  function updateCounter() {
+    document.getElementById("counter").innerText = 
+      `${count} / ${goal} collected 💖`;
+  }
+
+  function showMessage() {
+    document.querySelector("h1").style.display = "none";
+    document.getElementById("counter").style.display = "none";
+    document.getElementById("message").style.display = "block";
+  }
+
+  function yesClicked() {
+    document.body.innerHTML = `
+      <h1 style="margin-top:120px;color:#ff3366;">
+        I knew you'd say yes ;), I love you my babylu 💕🥰
+      </h1>
+  <img 
+      src="gatsby.gif"
+      alt="Cute gif"
+      style="
+        width:300px;
+        max-width:80%;
+        margin-top:20px;
+        border-radius:20px;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+      "
+    >
+    `;
+
+    for (let i = 0; i < 60; i++) {
+      createConfetti();
+    }
+  }
+
+  function createConfetti() {
+    const conf = document.createElement("div");
+    conf.className = "confetti";
+    conf.innerHTML = ["🎉","✨","💖","🎊","🌸"][Math.floor(Math.random()*5)];
+    conf.style.left = Math.random() * 100 + "vw";
+    conf.style.top = Math.random() * -20 + "vh";
+    document.body.appendChild(conf);
+
+    setTimeout(() => conf.remove(), 3000);
+  }
+
+  setInterval(createItem, 800);
+</script>
+
+</body>
+</html>
