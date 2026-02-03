@@ -22,12 +22,13 @@
       margin-top: 10px;
     }
 
-    .item {
-      position: absolute;
-      font-size: 40px;
-      cursor: pointer;
-      user-select: none;
-      animation: float 4s linear infinite;
+   .item {
+  position: absolute;
+  font-size: 60px; /* bigger for finger taps */
+  cursor: pointer;
+  user-select: none;
+  animation: float 4s linear infinite;
+  touch-action: none; /* prevent scrolling when tapping */
     }
 
     @keyframes float {
@@ -169,4 +170,5 @@ function collectItem(item) {
 
 </body>
 </html>
+
 
