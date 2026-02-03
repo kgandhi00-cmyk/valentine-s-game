@@ -102,16 +102,18 @@
     item.style.left = Math.random() * 90 + "vw";
     item.style.animationDuration = (2 + Math.random() * 3) + "s";
 
-    item.onclick = () => {
-      item.remove();
-      count++;
-      updateCounter();
+item.onclick = () => collectItem(item);
+item.addEventListener("touchstart", () => collectItem(item));
 
-      if (count >= goal) {
-        showMessage();
-      }
-    };
+function collectItem(item) {
+  item.remove();
+  count++;
+  updateCounter();
 
+  if (count >= goal) {
+    showMessage();
+  }
+};
     document.body.appendChild(item);
 
     setTimeout(() => item.remove(), 5000);
@@ -167,3 +169,4 @@
 
 </body>
 </html>
+
